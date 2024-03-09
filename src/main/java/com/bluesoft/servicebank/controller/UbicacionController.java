@@ -5,7 +5,7 @@ import com.bluesoft.servicebank.model.dto.DepartamentoDTO;
 import com.bluesoft.servicebank.model.dto.PaisDTO;
 import com.bluesoft.servicebank.model.dto.queryparams.GetCiudadParams;
 import com.bluesoft.servicebank.model.dto.queryparams.GetDepartamentoParams;
-import com.bluesoft.servicebank.service.IUbicacionService;
+import com.bluesoft.servicebank.service.ubicacion.IUbicacionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
