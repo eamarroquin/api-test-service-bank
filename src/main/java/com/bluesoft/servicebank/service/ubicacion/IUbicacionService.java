@@ -1,4 +1,4 @@
-package com.bluesoft.servicebank.service;
+package com.bluesoft.servicebank.service.ubicacion;
 
 import com.bluesoft.servicebank.model.dto.CiudadDTO;
 import com.bluesoft.servicebank.model.dto.DepartamentoDTO;

@@ -5,7 +5,7 @@ import com.bluesoft.servicebank.model.dto.DepartamentoDTO;
 import com.bluesoft.servicebank.model.dto.PaisDTO;
 import com.bluesoft.servicebank.model.dto.queryparams.GetCiudadParams;
 import com.bluesoft.servicebank.model.dto.queryparams.GetDepartamentoParams;
-import com.bluesoft.servicebank.service.IUbicacionService;
+import com.bluesoft.servicebank.service.ubicacion.IUbicacionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +37,7 @@ public class UbicacionController {
     public ResponseEntity<List<DepartamentoDTO>> getDepartamentos(@RequestParam Optional<Integer> idDepto,
                                                                   @RequestParam Optional<String> descDepto,
                                                                   @RequestParam Optional<Integer> idPais,
-                                                                  @RequestParam Optional<String> descPais,
-                                                                  @RequestParam Optional<Integer> page,
-                                                                  @RequestParam Optional<Integer> pageSize,
-                                                                  @RequestParam Optional<String> orderBy) {
+                                                                  @RequestParam Optional<String> descPais) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -49,9 +46,6 @@ public class UbicacionController {
                         .descDepto(descDepto.orElse(""))
                         .idPais(idPais.orElse(-1))
                         .descPais(descPais.orElse(""))
-                        .page(page.orElse(0))
-                        .pageSize(pageSize.orElse(125))
-                        .orderBy(orderBy.orElse("descripcion"))
                         .build()));
     }
 
@@ -61,10 +55,7 @@ public class UbicacionController {
                                                        @RequestParam Optional<Integer> idDepto,
                                                        @RequestParam Optional<String> descDepto,
                                                        @RequestParam Optional<Integer> idPais,
-                                                       @RequestParam Optional<String> descPais,
-                                                       @RequestParam Optional<Integer> page,
-                                                       @RequestParam Optional<Integer> pageSize,
-                                                       @RequestParam Optional<String> orderBy) {
+                                                       @RequestParam Optional<String> descPais) {
 
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -75,9 +66,6 @@ public class UbicacionController {
                         .descDepto(descDepto.orElse(""))
                         .idPais(idPais.orElse(-1))
                         .descPais(descPais.orElse(""))
-                        .page(page.orElse(0))
-                        .pageSize(pageSize.orElse(250))
-                        .orderBy(orderBy.orElse("descripcion"))
                         .build()));
     }
 
