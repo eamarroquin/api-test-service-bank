@@ -1,4 +1,4 @@
-package com.bluesoft.servicebank.model.dto.queryparams;
+package com.bluesoft.servicebank.model.dto.params;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,10 +9,8 @@ import lombok.RequiredArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class GetCiudadParams {
+public class GetDepartamentoParams {
 
-    private Integer idCiudad;
-    private String descCiudad;
     private Integer idDepto;
     private String descDepto;
     private Integer idPais;

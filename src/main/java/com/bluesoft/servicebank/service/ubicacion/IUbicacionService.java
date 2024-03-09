@@ -3,8 +3,8 @@ package com.bluesoft.servicebank.service.ubicacion;
 import com.bluesoft.servicebank.model.dto.CiudadDTO;
 import com.bluesoft.servicebank.model.dto.DepartamentoDTO;
 import com.bluesoft.servicebank.model.dto.PaisDTO;
-import com.bluesoft.servicebank.model.dto.queryparams.GetCiudadParams;
-import com.bluesoft.servicebank.model.dto.queryparams.GetDepartamentoParams;
+import com.bluesoft.servicebank.model.dto.params.GetCiudadParams;
+import com.bluesoft.servicebank.model.dto.params.GetDepartamentoParams;
 
 import java.util.List;
 
