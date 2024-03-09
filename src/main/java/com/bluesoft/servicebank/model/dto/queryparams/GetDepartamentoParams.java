@@ -15,8 +15,5 @@ public class GetDepartamentoParams {
     private String descDepto;
     private Integer idPais;
     private String descPais;
-    private Integer page;
-    private Integer pageSize;
-    private String orderBy;
 
 }
