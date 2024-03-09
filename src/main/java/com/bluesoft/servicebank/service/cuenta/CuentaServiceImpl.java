@@ -75,11 +75,11 @@ public class CuentaServiceImpl implements ICuentaService {
                 .orElseThrow(() -> new NotFoundException("No existe la ciudad con identificador: " + cuentaDTO.getIdCiudad()));
 
         Cuenta cuenta = cuentaRepository.save(Cuenta.builder()
-                        .numeroCuenta(UUID.randomUUID().toString())
-                        .tipoCuenta(tipoCuenta)
-                        .saldo(cuentaDTO.getSaldo())
-                        .cliente(cliente)
-                        .ciudad(ciudad)
+                .numeroCuenta(UUID.randomUUID().toString())
+                .tipoCuenta(tipoCuenta)
+                .saldo(cuentaDTO.getSaldo())
+                .cliente(cliente)
+                .ciudad(ciudad)
                 .build());
 
         return mapCuentaToDTO(cuenta);
