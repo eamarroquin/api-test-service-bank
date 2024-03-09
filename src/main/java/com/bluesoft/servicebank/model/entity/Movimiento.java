@@ -41,6 +41,9 @@ public class Movimiento implements Serializable {
     @Column(name = "valor", nullable = false, scale = 2)
     private Double valor;
 
+    @Column(name = "observacion")
+    private String observacion;
+
     @ToString.Exclude
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_id_ciudad", nullable = false, referencedColumnName = "id_ciudad")
