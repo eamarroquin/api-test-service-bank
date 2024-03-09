@@ -1,6 +1,7 @@
 package com.bluesoft.servicebank.service.movimiento;
 
 import com.bluesoft.servicebank.exception.BadRequestException;
+import com.bluesoft.servicebank.exception.ConflictException;
 import com.bluesoft.servicebank.exception.NotFoundException;
 import com.bluesoft.servicebank.model.dto.MovimientoDTO;
 import com.bluesoft.servicebank.model.entity.Ciudad;
@@ -90,6 +91,8 @@ public class MovimientoServiceImpl implements IMovimientoService {
                 .ciudad(ciudad)
                 .build());
 
+        actualizarSaldoPostTransaccion(tipoMovimiento, cuenta, movimiento.getValor());
+
         return mapMovimientoToDTO(movimiento);
     }
 
@@ -97,6 +100,24 @@ public class MovimientoServiceImpl implements IMovimientoService {
         if (saldo < valorTransaccion) {
             throw new BadRequestException("No se puede completar la transacción debido a saldo insuficiente en la cuenta. Por favor, asegúrese de tener fondos suficientes antes de intentar nuevamente");
         }
+    }
+
+    private void actualizarSaldoPostTransaccion(TipoMovimiento tipoMovimiento, Cuenta cuenta, Double valorTransaccion) {
+
+        Double nuevoSaldo = 0.00;
+
+        if (tipoMovimiento.getDescripcion().equals("CONSIGNACIÓN")) {
+            nuevoSaldo = cuenta.getSaldo() + valorTransaccion;
+        } else if (tipoMovimiento.getDescripcion().equals("RETIRO")) {
+            nuevoSaldo = cuenta.getSaldo() - valorTransaccion;
+        }else {
+            throw new ConflictException("Error al procesar el tipo de movimiento. Verifique la información proporcionada e inténtelo nuevamente.");
+        }
+
+        cuenta.setSaldo(nuevoSaldo);
+
+        cuentaRepository.save(cuenta);
+
     }
 
     private MovimientoDTO mapMovimientoToDTO(Movimiento movimiento) {

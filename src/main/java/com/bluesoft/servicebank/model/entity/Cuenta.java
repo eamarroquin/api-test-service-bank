@@ -24,7 +24,7 @@ public class Cuenta implements Serializable {
     @Column(name = "id_cuenta", nullable = false)
     private Long id;
 
-    @Column(name = "numero_cuenta", nullable = false, unique = true, length = 25)
+    @Column(name = "numero_cuenta", nullable = false, unique = true, length = 50)
     private String numeroCuenta;
 
     @ToString.Exclude
