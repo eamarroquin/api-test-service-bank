@@ -1,0 +1,1 @@
+INSERT INTO pais (descripcion) VALUES ('Argentina'), ('Brasil'), ('Chile'), ('Colombia'), ('México');
