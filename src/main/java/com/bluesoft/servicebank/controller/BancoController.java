@@ -28,6 +28,15 @@ public class BancoController {
                 .body(cuentaService.obtenerCuentasDelCliente(idCliente));
     }
 
+    @PostMapping("/cliente/{idCliente}/cuenta")
+    public ResponseEntity<CuentaDTO> postCuenta(@PathVariable Long idCliente,
+                                                    @RequestBody CuentaDTO cuentaDTO) {
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(cuentaService.registrarCuenta(idCliente, cuentaDTO));
+    }
+
     @GetMapping("cuenta/{idCuenta}/movimientos")
     public ResponseEntity<List<MovimientoDTO>> getMovimientosByCuenta(@PathVariable Long idCuenta) {
 
@@ -36,7 +45,7 @@ public class BancoController {
                 .body(movimientoService.obtenerMovimientosRecientes(idCuenta));
     }
 
-    @PostMapping("/cuenta/{idCuenta}/movimiento")
+    @PostMapping("/cuenta/{idCuenta}/movimientos")
     public ResponseEntity<MovimientoDTO> postMovimiento(@PathVariable Long idCuenta,
                                                         @RequestBody MovimientoDTO movimientoDTO) {
 
