@@ -1,6 +1,7 @@
 package com.bluesoft.servicebank.service.informe;
 
 import com.bluesoft.servicebank.model.dto.InformeDTO;
+import com.bluesoft.servicebank.model.dto.MovimientoDTO;
 import com.bluesoft.servicebank.repository.IMovimientoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,18 @@ public class InformeServiceImpl implements IInformeService {
 
         return movimientoRepository.contarTransaccionesPorCuenta(mes, year);
 
+    }
+
+    @Override
+    public List<InformeDTO> obtenerRetirosCiudadDiferenteAOrigen() {
+
+        return movimientoRepository.obtenerClientesRetiros();
+
+    }
+
+    @Override
+    public List<MovimientoDTO> obtenerExtractosCuenta(Long idCuenta, int mes, int year) {
+        return movimientoRepository.consultarExtractoMensual(idCuenta, mes, year);
     }
 
 }
