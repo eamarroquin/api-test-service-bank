@@ -9,14 +9,18 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 public class JwtProviderImpl implements JwtProvider {
@@ -30,11 +34,16 @@ public class JwtProviderImpl implements JwtProvider {
     @Override
     public String generateToken(UserDetail auth) {
 
+        String authorities = auth.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.joining(","));
+
         Key key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()
                 .setSubject(auth.getUsername())
                 .claim("userId", auth.getId())
+                .claim("roles", authorities)
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_EXPIRATION_IN_MS))
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -52,16 +61,21 @@ public class JwtProviderImpl implements JwtProvider {
         String username = claims.getSubject();
         Long userId = claims.get("userId", Long.class);
 
+        Set<GrantedAuthority> authorities = Arrays.stream(claims.get("roles").toString().split(","))
+                .map(SecurityUtil::convertToAuthority)
+                .collect(Collectors.toSet());
+
         UserDetails userDetails = UserDetail.builder()
                 .id(userId)
                 .username(username)
+                .authorities(authorities)
                 .build();
 
         if (Objects.isNull(username)) {
             return null;
         }
 
-        return new UsernamePasswordAuthenticationToken(userDetails, null);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
 
     }
 
