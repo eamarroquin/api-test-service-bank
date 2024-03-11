@@ -1,6 +1,7 @@
 package com.bluesoft.servicebank.controller;
 
 import com.bluesoft.servicebank.model.dto.InformeDTO;
+import com.bluesoft.servicebank.model.dto.MovimientoDTO;
 import com.bluesoft.servicebank.service.informe.IInformeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,24 @@ public class InformeController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(informeService.obtenerTransaccionesPorCliente(mes, year));
+    }
+
+    @GetMapping("/transacciones-retiros")
+    public ResponseEntity<List<InformeDTO>> getRetirosCiudad() {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(informeService.obtenerRetirosCiudadDiferenteAOrigen());
+    }
+
+    @GetMapping("/extracto/cuenta/{idCuenta}")
+    public ResponseEntity<List<MovimientoDTO>> getExtractoCuenta(@PathVariable Long idCuenta,
+                                                                 @RequestParam int mes,
+                                                                 @RequestParam int year) {
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(informeService.obtenerExtractosCuenta(idCuenta, mes, year));
     }
 
 }

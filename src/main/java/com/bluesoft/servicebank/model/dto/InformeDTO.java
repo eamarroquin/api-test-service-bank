@@ -19,5 +19,6 @@ public class InformeDTO implements Serializable {
     private String dni;
     private String nombre;
     private Long cantidadTransacciones;
+    private Double valorTransacciones;
 
 }
