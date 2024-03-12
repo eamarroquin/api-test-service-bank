@@ -26,9 +26,9 @@ public interface IMovimientoRepository extends JpaRepository<Movimiento, Long> {
             "ORDER BY cantidadTransacciones DESC")
     List<InformeDTO> contarTransaccionesPorCuenta(@Param("mes") int mes, @Param("year") int year);
 
-    @Query("SELECT new com.bluesoft.servicebank.model.dto.InformeDTO(m.cuenta.cliente.id, m.cuenta.cliente.dni, m.cuenta.cliente.nombre, SUM(m) as cantidadTransacciones, SUM(m.valor) AS valorTransacciones) " +
+    @Query("SELECT new com.bluesoft.servicebank.model.dto.InformeDTO(m.cuenta.cliente.id, m.cuenta.cliente.dni, m.cuenta.cliente.nombre, COUNT(m.id) as cantidadTransacciones, SUM(CASE WHEN m.valor > 1000000 THEN m.valor ELSE 0 END) as valorTransacciones) " +
             "FROM Movimiento m " +
-            "WHERE m.tipoMovimiento.descripcion = 'RETIRO' AND m.cuenta.ciudad.id <> m.ciudad.id " +
+            "WHERE m.tipoMovimiento.descripcion = 'RETIRO' AND m.cuenta.ciudad.id <> m.ciudad.id AND m.valor > 1000000 " +
             "GROUP BY m.cuenta.cliente.id " +
             "HAVING SUM(m.valor) > 1000000")
     List<InformeDTO> obtenerClientesRetiros();
