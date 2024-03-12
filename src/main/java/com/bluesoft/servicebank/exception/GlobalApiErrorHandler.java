@@ -50,14 +50,14 @@ public class GlobalApiErrorHandler extends ResponseEntityExceptionHandler {
             NotFoundException.class
     })
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<Object> handleNotFoundException(NotFoundException ex) {
+    public ResponseEntity<Object> handleNotFoundException(RuntimeException ex) {
         log.error("Recurso no encontrado", ex);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
     }
 
     @ExceptionHandler(ConflictException.class)
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseEntity<Object> handleConflictException(ConflictException ex) {
+    public ResponseEntity<Object> handleConflictException(RuntimeException ex) {
         log.error("Conflicto", ex);
         return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
     }
@@ -70,7 +70,7 @@ public class GlobalApiErrorHandler extends ResponseEntityExceptionHandler {
             MethodArgumentTypeMismatchException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleBadRequestException(BadRequestException ex) {
+    public ResponseEntity<Object> handleBadRequestException(RuntimeException ex) {
         log.error("Solicitud incorrecta", ex);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
